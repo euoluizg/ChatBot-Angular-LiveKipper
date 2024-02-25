@@ -24,6 +24,11 @@
     .img-section{
         display: flex;
         flex-direction: column;
+
+        .sparkle{
+            position: absolute;
+            margin-left: 14px;
+        }
     }
 
     button{
@@ -35,9 +40,12 @@
         border-radius: 30px;
         padding: 14px;
 
-        display: flex; 
-        justify-content: space-between;
-        align-items: center;
+        position: relative;
+
+        .arrow-right{
+            position: absolute;
+            right: 14px;
+        }
     }
 }
 
