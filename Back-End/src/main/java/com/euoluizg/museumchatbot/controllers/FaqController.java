@@ -1,6 +1,9 @@
 package com.euoluizg.museumchatbot.controllers;
 
 
+import com.euoluizg.museumchatbot.dto.MessageResponse;
+import com.euoluizg.museumchatbot.services.FaqService;
+import com.euoluizg.museumchatbot.utils.FaqAnswers;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -15,11 +18,17 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping("/api/chat")
 public class FaqController {
-    
-    @PostMapping
-    public ResponseEntity<String> answerQuestion(@RequestBody MessageRequest request) {
-        System.out.println(request.message());
-        return ResponseEntity.ok("oi deu certo");
+    private FaqService faqService;
+
+    public FaqController(FaqService faqService){
+        this.faqService = faqService;
     }
-    
+
+    @PostMapping
+    public ResponseEntity<MessageResponse> answerQuestion(@RequestBody MessageRequest request) {
+        String answer = this.faqService.getAnswer(request.message());
+        MessageResponse response = new MessageResponse(answer);
+        return ResponseEntity.ok(response);
+    }
+
 }
